@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import AuthContext from '../context/AuthContext';
 
 const ResumeDetail = () => {
@@ -14,7 +14,7 @@ const ResumeDetail = () => {
                 headers: { Authorization: `Bearer ${user.token}` }
             };
             try {
-                const { data } = await axios.get(`http://localhost:5000/api/resumes/${id}`, config);
+                const { data } = await api.get(`/resumes/${id}`, config);
                 setResume(data);
             } catch (error) {
                 console.error(error);

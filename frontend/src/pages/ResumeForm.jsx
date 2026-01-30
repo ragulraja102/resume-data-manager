@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import AuthContext from '../context/AuthContext';
 
 const ResumeForm = () => {
@@ -25,7 +25,7 @@ const ResumeForm = () => {
                 const config = {
                     headers: { Authorization: `Bearer ${user.token}` }
                 };
-                const { data } = await axios.get(`http://localhost:5000/api/resumes/${id}`, config);
+                const { data } = await api.get(`/resumes/${id}`, config);
                 setFormData({
                     ...data,
                     skills: data.skills.join(', '),
@@ -90,9 +90,9 @@ const ResumeForm = () => {
 
         try {
             if (id) {
-                await axios.put(`http://localhost:5000/api/resumes/${id}`, resumeData, config);
+                await api.put(`/resumes/${id}`, resumeData, config);
             } else {
-                await axios.post('http://localhost:5000/api/resumes', resumeData, config);
+                await api.post('/resumes', resumeData, config);
             }
             navigate('/dashboard');
         } catch (error) {

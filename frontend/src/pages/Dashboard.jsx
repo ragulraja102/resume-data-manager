@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import AuthContext from '../context/AuthContext';
 
 const Dashboard = () => {
@@ -15,7 +15,7 @@ const Dashboard = () => {
                 },
             };
             try {
-                const { data } = await axios.get('http://localhost:5000/api/resumes', config);
+                const { data } = await api.get('/resumes', config);
                 setResumes(data);
             } catch (error) {
                 console.error(error);
@@ -33,7 +33,7 @@ const Dashboard = () => {
                 },
             };
             try {
-                await axios.delete(`http://localhost:5000/api/resumes/${id}`, config);
+                await api.delete(`/resumes/${id}`, config);
                 setResumes(resumes.filter(resume => resume._id !== id));
             } catch (error) {
                 console.error(error);
